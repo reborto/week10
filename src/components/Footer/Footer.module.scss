@@ -1,5 +1,7 @@
+@import "./../../libs/variables.scss";
+
 .footer {
-  padding: 20px 30px 50px;
+  padding: 20px $sidePadding 50px;
 
   hr {
     border: 0;

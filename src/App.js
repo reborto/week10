@@ -12,6 +12,7 @@ function App() {
   return (
     <div>
       <Header name={name} links={nav} />
+      <p>Lorem ipsum</p>
       <Footer />
     </div>
   );
