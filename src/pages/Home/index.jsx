@@ -1,47 +1,41 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FriendPreview } from "../../components/FriendPreview";
 import { MessagePreview } from "../../components/MessagePreview";
 import { Post } from "../../components/Post";
+import { http } from "./../../libs/http";
 import styles from "./Home.module.scss";
 
-const friends = [
-  { name: "Chandler", photo: "https://randomuser.me/api/portraits/lego/5.jpg" },
-  { name: "Pippo", photo: "https://randomuser.me/api/portraits/lego/7.jpg" },
-  { name: "Geralt", photo: "https://randomuser.me/api/portraits/lego/8.jpg" },
-];
+const friends = [];
 
-const messages = [
-  { text: "lorem ipsum", date: new Date(), sender: "Pippo" },
-  { text: "bau bau", date: new Date(), sender: "Pluto" },
-  { text: "yoooo", date: new Date(), sender: "V" },
-  { text: "finish the fight", date: new Date(), sender: "Master Chief" },
-  {
-    text: "this cave is not a natural formation",
-    date: new Date(),
-    sender: "Cortana",
-  },
-];
+const messages = [];
 
-const posts = [
-  {
-    author: "User",
-    text: "Oggi ho mangiato robba buona",
-    date: new Date(),
-    photo:
-      "https://images.unsplash.com/photo-1639512398860-be15f48100ea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1024&q=80",
-  },
-  {
-    author: "User",
-    text: "Sto imparando React",
-    date: new Date(),
-  },
-];
+const posts = [];
 
 const Home = () => {
   const [friendsPreview, setFriendsPreview] = useState(friends);
   const [allPosts, setAllPosts] = useState(posts);
   const [messagesPreview, setMessagesPreview] = useState(messages);
-  // const friendPreview = [];
+
+  // GETTER -> const friendPreview = [];
+  // SETTER -> friendPreview = [...]
+
+  // Esegui del codice quando il componente è inizializzato (montato in pagina)
+  // componentDidMount() --> simile a "DOMContentLoaded" ma solo per il componente
+  useEffect(() => {
+    // fetch("https://edgemony-backend.herokuapp.com/friends?_limit=4")
+    //   .then((response) => response.json())
+    //   .then((data) => setFriendsPreview(data));
+
+    http("/friends?_limit=4").then((data) => setFriendsPreview(data));
+    http("/messages?_limit=4").then((data) => setMessagesPreview(data));
+    http("/posts").then((data) => setAllPosts(data));
+
+    // Promise.all([
+    //   http("/friends?_limit=4"),
+    //   http("/messages?_limit=4"),
+    //   http("/posts")
+    // ]).then((data) => console.log(data[0]))
+  }, []);
 
   return (
     <section className={styles.home}>

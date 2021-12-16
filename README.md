@@ -7,6 +7,10 @@
 - sei settings della pages impostare come sorgente la branch `gh-pages`
 - aprire l'url della mia pages (username.github.io/repo)
 
+## "Ciclo" dello stato locale (con useState)
+
+![./_docs/useState.png](./_docs/useState.png)
+
 ---
 
 # Getting Started with Create React App
