@@ -33,7 +33,12 @@ const Post = (props) => {
       <p>{data.text}</p>
 
       {data.photo ? <img src={data.photo} alt={data.author} /> : <></>}
-      {/* hasImage(data.photo) */}
+
+      {/*
+      Per gestire condizioni più complesse posso richiamare una funzione 
+      
+      hasImage(data.photo) 
+      */}
     </article>
   );
 };

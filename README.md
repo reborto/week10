@@ -11,6 +11,10 @@
 
 ![./_docs/useState.png](./_docs/useState.png)
 
+## "Ciclo" dello stato locale (con useRducer)
+
+![./_docs/useRducer.png](./_docs/useReducer.png)
+
 ---
 
 # Getting Started with Create React App
