@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import CreatePost from "./components/CreatePost";
 
 import Home from "./pages/Home";
 
@@ -10,6 +11,7 @@ const INIT_STATE = {
   name: "Feisbrut",
   nav: [
     { link: "/", label: "Home" },
+    { link: "/new-post", label: "Create new post" },
     { link: "/messages", label: "Messages" },
     { link: "/friends", label: "Friends" },
   ],
@@ -38,6 +40,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/new-post" element={<CreatePost />} />
         <Route path="/messages" element={<h3>Messages</h3>} />
         <Route path="/friends" element={<h3>Friends</h3>} />
       </Routes>
