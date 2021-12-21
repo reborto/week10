@@ -12,4 +12,12 @@ const httpPOST = (resource, data) =>
     body: JSON.stringify(data),
   }).then((response) => response.json());
 
-export { http, httpPOST };
+const httpDELETE = (resource) =>
+  fetch(BASE_URL + resource, {
+    method: "DELETE",
+    headers: {
+      "Content-type": "application/json",
+    },
+  }).then((response) => response.json());
+
+export { http, httpPOST, httpDELETE };

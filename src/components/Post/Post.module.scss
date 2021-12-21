@@ -1,6 +1,8 @@
 @import "./../../libs/variables.scss";
 
 .post {
+  position: relative;
+  margin-bottom: 20px;
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0px 0px 10px $lightGray;
@@ -11,5 +13,18 @@
 
   img {
     width: 100%;
+  }
+
+  .deleteBtn {
+    position: absolute;
+    right: 0;
+    margin-right: 20px;
+
+    background: transparent;
+    border: 0;
+    color: red;
+    font-weight: bold;
+    font-size: 2rem;
+    cursor: pointer;
   }
 }
