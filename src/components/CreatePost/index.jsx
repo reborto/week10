@@ -1,35 +1,56 @@
-import { useState, useEffect } from "react";
+import {useEffect, useReducer } from "react";
 import { httpPOST } from "../../libs/http";
 import styles from "./CreatePost.module.scss";
 
+const INIT_STATE ={
+  formPostObj:{
+author:"",
+text:"",
+date: new Date().toISOString(),
+photo:""
+
+  }};
+
+const reducer = (state, action) =>  {
+  switch (action.type) {
+    case "change-form":
+      return {...state, formPostObj: {...state.formPostObj, [action.fieldName]:action.payload}};
+        default:
+          return state;
+  }
+};
+
 const CreatePost = () => {
-  const [authorInput, setAuthorInput] = useState("");
-  const [imgInput, setImgInput] = useState("");
-  const [messageInput, setMessageInput] = useState("");
-  const [formPostObj, setFormPostObj] = useState({});
+  const [state, dispatch] = useReducer(reducer, INIT_STATE);
 
   const handleSendBtn = (event) => {
     event.preventDefault();
-    httpPOST("/posts", formPostObj);
-    alert("Il post `e stato creato!");
+    httpPOST("/posts", state.formPostObj);
+    dispatch ({type:"alert", payload: state});
   };
 
-  useEffect(() => {
-    setFormPostObj({
-      author: authorInput,
-      text: messageInput,
-      date: new Date().toISOString(),
-      photo: imgInput,
-    });
-  }, [authorInput, imgInput, messageInput]);
+  useEffect(()=>{
+    dispatch ({type:"alert", payload: false});
+  })
+
+
+
+  // useEffect(() => {
+  //   setFormPostObj({
+  //     author: authorInput,
+  //     text: messageInput,
+  //     date: new Date().toISOString(),
+  //     photo: imgInput,
+  //   });
+  // }, [authorInput, imgInput, messageInput]);
 
   return (
     <div className={styles.createPost}>
       <form>
         <div className={styles.__author}>
           <input
-            value={authorInput}
-            onChange={(e) => setAuthorInput(e.target.value)}
+            value={state.formPostObj.author}
+            onChange={(e) => dispatch({ type: "change-form", fieldName: "author", payload: e.target.value })}
             name="author"
             id="author"
             type="text"
@@ -38,8 +59,8 @@ const CreatePost = () => {
           />
 
           <input
-            onChange={(e) => setImgInput(e.target.value)}
-            value={imgInput}
+            onChange={(e) => dispatch({ type: "change-form", fieldName: "photo", payload: e.target.value })}
+            value={state.formPostObj.photo}
             name="img"
             id="img"
             type="text"
@@ -52,8 +73,8 @@ const CreatePost = () => {
         </div>
 
         <textarea
-          value={messageInput}
-          onChange={(e) => setMessageInput(e.target.value)}
+          value={state.formPostObj.text}
+          onChange={(e) => dispatch({ type: "change-form", fieldName: "text", payload: e.target.value })}
           name="message"
           id="message"
           cols="30"
